@@ -1,36 +1,41 @@
 package org.as.repository.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
-@Entity
+
+@Entity(name = "notification")
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Notification {
-    private final String content;
-    private final LocalDate issueDate;
-    private final List<String> emailAddresses;
-    private final SendStatus sendStatus;
 
-    public Notification(String content, LocalDate issueDate, List<String> emailAddresses, SendStatus sendStatus) {
-        this.content = content;
-        this.issueDate = issueDate;
-        this.emailAddresses = emailAddresses;
-        this.sendStatus = sendStatus;
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    public String getContent() {
-        return content;
-    }
+    private String content;
 
-    public LocalDate getIssueDate() {
-        return issueDate;
-    }
+    @Column(name = "issue_date")
+    private LocalDate issueDate;
 
-    public List<String> getEmailAddresses() {
-        return emailAddresses;
-    }
+    @Column(name = "send_status")
+    @Enumerated(EnumType.STRING)
+    private SendStatus sendStatus;
 
-    public SendStatus getSendStatus() {
-        return sendStatus;
-    }
+    @OneToMany(mappedBy = "notification", cascade = CascadeType.ALL)
+    private Set<TargetDetails> targetDetails;
 }

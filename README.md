@@ -1,3 +1,7 @@
+Przed uruchomieniem aplikacji należy odpalić skrypt dockerowy init-mysql.yaml
+docker compose -f init-mysql.yaml up
+
+
 # notification-backend
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.

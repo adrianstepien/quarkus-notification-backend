@@ -1,17 +1,27 @@
 package org.as.repository;
 
+import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import org.as.repository.model.Notification;
-import org.as.repository.model.SendStatus;
 
 import javax.enterprise.context.ApplicationScoped;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 @ApplicationScoped
-public class NotificationRepository {
+public class NotificationRepository implements PanacheRepository<Notification> {
 
-    public Set<Notification> getNotifications() {
-        return Set.of(new Notification("test", LocalDate.now(), List.of("email1", "email2"), SendStatus.NEW));
+    public List<Notification> getNotifications() {
+        return listAll();
+    }
+
+    public Notification getNotificationById(Long id) {
+        return findByIdOptional(id).orElseThrow(() -> new RuntimeException("Cannot find notification with id " + id));
+    }
+
+    public void saveAll(List<Notification> notifications) {
+        persist(notifications);
+    }
+
+    public void save(Notification notification) {
+        persist(notification);
     }
 }

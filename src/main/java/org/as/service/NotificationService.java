@@ -6,6 +6,8 @@ import org.as.repository.NotificationRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -17,7 +19,18 @@ public class NotificationService {
 
     public Set<NotificationDto> getNotifications() {
         return notificationRepository.getNotifications().stream()
-                .map(NotificationMapper::mapNotificationToDto)
+                .map(NotificationMapper::mapEntityToDto)
                 .collect(Collectors.toSet());
+    }
+
+    public NotificationDto getNotificationById(Long id) {
+        return NotificationMapper.mapEntityToDto(notificationRepository.getNotificationById(id));
+    }
+
+    @Transactional
+    public void addNotifications(List<NotificationDto> notificationDtos) {
+        notificationRepository.saveAll(notificationDtos.stream()
+                .map(NotificationMapper::mapDtoToEntity)
+                .collect(Collectors.toList()));
     }
 }
