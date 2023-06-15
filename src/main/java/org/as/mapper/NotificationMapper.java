@@ -5,6 +5,8 @@ import org.as.repository.model.Notification;
 import org.as.repository.model.SendStatus;
 import org.as.repository.model.TargetDetails;
 
+import java.time.LocalDate;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class NotificationMapper {
@@ -16,10 +18,18 @@ public class NotificationMapper {
     }
 
     public static Notification mapDtoToEntity(NotificationDto notificationDto) {
-        return new Notification(null,
-                notificationDto.getContent(),
-                notificationDto.getIssueDate(),
-                SendStatus.NEW,
-                notificationDto.getEmailAddresses().stream().map(TargetDetails::new).collect(Collectors.toSet()));
+        Notification notification = new Notification();
+        notification.setContent(notificationDto.getContent());
+        notification.setIssueDate(LocalDate.now());
+        notification.setSendStatus(SendStatus.NEW);
+        Set<TargetDetails> targetDetailsSet = notificationDto.getEmailAddresses().stream().map(email -> {
+                        TargetDetails targetDetails = new TargetDetails();
+                        targetDetails.setEmailAddress(email);
+                        targetDetails.setNotification(notification);
+                        return targetDetails;
+                }).collect(Collectors.toSet());
+        notification.setTargetDetails(targetDetailsSet);
+
+        return notification;
     }
 }

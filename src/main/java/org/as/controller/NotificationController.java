@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -50,8 +51,18 @@ public class NotificationController {
     }
 
     @PUT
-    public Response updateNotification(@RequestBody NotificationDto notificationDto) {
+    @Path("{id}")
+    public Response updateNotification(@RequestBody NotificationDto notificationDto, @PathParam("id") Long id) {
         LOGGER.info("Update notifications {}", notificationDto);
+        notificationService.updateNotification(notificationDto, id);
         return Response.ok().build();
+    }
+
+    @DELETE
+    @Path("{id}")
+    public Response deleteNotification(@PathParam("id") Long id) {
+        LOGGER.info("Delete notification with id {}", id);
+        notificationService.deleteNotification(id);
+        return Response.noContent().build();
     }
 }

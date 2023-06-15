@@ -3,6 +3,7 @@ package org.as.service;
 import org.as.controller.dto.NotificationDto;
 import org.as.mapper.NotificationMapper;
 import org.as.repository.NotificationRepository;
+import org.as.repository.model.Notification;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -32,5 +33,17 @@ public class NotificationService {
         notificationRepository.saveAll(notificationDtos.stream()
                 .map(NotificationMapper::mapDtoToEntity)
                 .collect(Collectors.toList()));
+    }
+
+    @Transactional
+    public void updateNotification(NotificationDto notificationDto, Long id) {
+        Notification notification = notificationRepository.getNotificationById(id);
+        notification.setContent(notificationDto.getContent());
+        notificationRepository.save(notification);
+    }
+
+    @Transactional
+    public void deleteNotification(Long id) {
+        notificationRepository.deleteById(id);
     }
 }

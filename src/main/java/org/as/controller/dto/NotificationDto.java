@@ -14,6 +14,8 @@ import java.util.Set;
 @NoArgsConstructor
 public class NotificationDto {
     private String content;
+
     private LocalDate issueDate;
+
     private Set<String> emailAddresses;
 }

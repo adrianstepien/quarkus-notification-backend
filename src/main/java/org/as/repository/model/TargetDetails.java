@@ -3,6 +3,7 @@ package org.as.repository.model;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.ManyToOne;
 
 @Entity(name = "target_details")
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class TargetDetails {
@@ -26,10 +28,6 @@ public class TargetDetails {
     private String emailAddress;
 
     @ManyToOne
-    @JoinColumn(name="notification_id", nullable=false)
+    @JoinColumn(name = "notification_id", nullable = false)
     public Notification notification;
-
-    public TargetDetails(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
 }
