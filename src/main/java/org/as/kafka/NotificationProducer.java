@@ -1,6 +1,8 @@
 package org.as.kafka;
 
 import javax.enterprise.context.ApplicationScoped;
+
+import org.as.controller.dto.NotificationDto;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 
@@ -11,9 +13,9 @@ public class NotificationProducer {
 
     //TODO: czy da się tu zmienną z propertiesów?
     @Channel(TOPIC_NAME)
-    Emitter<String> emitter;
+    Emitter<NotificationDto> emitter;
 
-    public void produce(String message) {
-        emitter.send(message);
+    public void produce(NotificationDto notificationDto) {
+        emitter.send(notificationDto);
     }
 }
