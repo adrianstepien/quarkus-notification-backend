@@ -4,6 +4,7 @@ import org.as.controller.dto.NotificationDto;
 import org.as.mapper.NotificationMapper;
 import org.as.repository.NotificationRepository;
 import org.as.repository.model.Notification;
+import org.as.repository.model.SendStatus;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -24,6 +25,12 @@ public class NotificationService {
                 .collect(Collectors.toSet());
     }
 
+    public List<NotificationDto> getReadyNotifications() {
+        return notificationRepository.getReadyNotifications().stream()
+                .map(NotificationMapper::mapEntityToDto)
+                .collect(Collectors.toList());
+    }
+
     public NotificationDto getNotificationById(Long id) {
         return NotificationMapper.mapEntityToDto(notificationRepository.getNotificationById(id));
     }
@@ -39,6 +46,13 @@ public class NotificationService {
     public void updateNotification(NotificationDto notificationDto, Long id) {
         Notification notification = notificationRepository.getNotificationById(id);
         notification.setContent(notificationDto.getContent());
+        notificationRepository.save(notification);
+    }
+
+    @Transactional
+    public void changeState(Long id, SendStatus newState) {
+        Notification notification = notificationRepository.getNotificationById(id);
+        notification.setSendStatus(newState);
         notificationRepository.save(notification);
     }
 

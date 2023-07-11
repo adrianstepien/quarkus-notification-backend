@@ -13,6 +13,9 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NotificationDto {
+
+    private Long Id;
+
     private String content;
 
     private LocalDate issueDate;

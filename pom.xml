@@ -61,6 +61,10 @@
       <artifactId>lombok</artifactId>
       <version>1.18.24</version>
     </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-scheduler</artifactId>
+    </dependency>
     <!--swagger-->
     <dependency>
       <groupId>io.quarkus</groupId>

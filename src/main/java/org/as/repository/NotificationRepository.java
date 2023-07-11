@@ -2,6 +2,7 @@ package org.as.repository;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import org.as.repository.model.Notification;
+import org.as.repository.model.SendStatus;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
@@ -11,6 +12,10 @@ public class NotificationRepository implements PanacheRepository<Notification> {
 
     public List<Notification> getNotifications() {
         return listAll();
+    }
+
+    public List<Notification> getReadyNotifications() {
+        return list("sendStatus", SendStatus.READY);
     }
 
     public Notification getNotificationById(Long id) {

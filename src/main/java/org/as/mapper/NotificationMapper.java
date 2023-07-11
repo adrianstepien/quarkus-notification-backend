@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 public class NotificationMapper {
 
     public static NotificationDto mapEntityToDto(Notification notification) {
-        return new NotificationDto(notification.getContent(),
+        return new NotificationDto(notification.getId(),
+                                    notification.getContent(),
                                     notification.getIssueDate(),
                                     notification.getTargetDetails().stream().map(TargetDetails::getEmailAddress).collect(Collectors.toSet()));
     }
