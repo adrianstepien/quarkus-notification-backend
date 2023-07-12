@@ -1,7 +1,8 @@
 package org.as.sender;
 
+import jakarta.inject.Inject;
 import io.quarkus.scheduler.Scheduled;
-import org.as.kafka.NotificationProducer;
+import jakarta.enterprise.context.ApplicationScoped;
 import org.as.repository.model.SendStatus;
 import org.as.service.NotificationService;
 

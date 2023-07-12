@@ -1,10 +1,9 @@
 package org.as.kafka;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import org.as.controller.dto.NotificationDto;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
-
-import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class NotificationProducer {

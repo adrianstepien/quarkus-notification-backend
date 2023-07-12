@@ -1,10 +1,10 @@
 package org.as.repository;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
+import jakarta.enterprise.context.ApplicationScoped;
 import org.as.repository.model.Notification;
 import org.as.repository.model.SendStatus;
 
-import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
 
 @ApplicationScoped

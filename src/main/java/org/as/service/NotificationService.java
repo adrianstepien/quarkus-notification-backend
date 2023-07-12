@@ -1,14 +1,14 @@
 package org.as.service;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import org.as.controller.dto.NotificationDto;
 import org.as.mapper.NotificationMapper;
 import org.as.repository.NotificationRepository;
 import org.as.repository.model.Notification;
 import org.as.repository.model.SendStatus;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
