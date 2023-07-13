@@ -17,7 +17,7 @@ public class NotificationSender {
     @Inject
     SqsProducer sqsProducer;
 
-    @Scheduled(every = "1h")
+    @Scheduled(every = "${notification.sender.cron}")
     void sendReadyNotifications() {
         notificationService.getReadyNotifications().forEach(
                 notificationDto -> {
